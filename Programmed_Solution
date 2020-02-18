@@ -1,0 +1,215 @@
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+	/*Asignacion #2:Programa para calcular promedio,mejor venta y repeticion de mejor venta en cuatro semanas,Cesar A Delgado Aponte
+	INGE-3016*/
+
+	int dia, semana;
+	float total_dias1 = 0, total_dias2 = 0, total_dias3 = 0, total_dias4 = 0, total_sabado = 0, total_domingo = 0;
+	float total_semana1 = 0, total_semana2 = 0, total_semana3 = 0, total_semana4 = 0;
+	float promedio_dias1, promedio_dias2, promedio_dias3, promedio_dias4, promedio_sabadodomingo;
+	float promedio_semana1, promedio_semana2, promedio_semana3, promedio_semana4;
+	float mejorventa, mejorventa_semana1, mejorventa_semana2, mejorventa_semana3, mejorventa_semana4;
+	int repeticion_total = 0;
+	int repeticion_primerasemana = 0, repeticion_segundasemana = 0, repeticion_tercerasemana = 0,repeticion_cuartasemana = 0;
+	int const fila = 7;
+	int const columna = 4;
+	float arreglo[fila][columna];
+	printf("Programa para calcular promedio,mejor venta y repeticion de mejor venta en cuatro semanas\n");
+	printf("Porfavor ingrese las ventas:\n");
+	for (semana = 0; semana < columna; semana++)
+	{
+		for (dia = 0; dia < fila; dia++)
+		{
+			scanf_s("%f", &arreglo[dia][semana]);
+			while (arreglo[dia][semana] < 0)
+			{
+				printf("Por favor ingrese un valor entero positivo\n");
+				scanf_s("%f", &arreglo[dia][semana]);
+			}
+		}
+	}
+	
+	//PROMEDIOS DE LUNES A VIERNES
+	for (dia = 0; dia < fila-2; dia++)
+		total_dias1 = total_dias1 + arreglo[dia][0];
+	for (dia = 0; dia < fila-2; dia++)
+		total_dias2 = total_dias2 + arreglo[dia][1];
+	for (dia = 0; dia < fila-2; dia++)
+		total_dias3 = total_dias3 + arreglo[dia][2];
+	for (dia = 0; dia < fila-2; dia++)
+		total_dias4 = total_dias4 + arreglo[dia][3];
+
+	promedio_dias1 = total_dias1 / (5);
+	promedio_dias2 = total_dias2 / (5);
+	promedio_dias3 = total_dias3 / (5);
+	promedio_dias4 = total_dias4 / (5);
+
+	printf("\nSu promedio por semana de lunes a viernes fue-\n");
+	printf("Primera semana:\n%c%.2f\n", 36, promedio_dias1);
+	printf("Segunda semana:\n%c%.2f\n", 36, promedio_dias2);
+	printf("Tercera semana:\n%c%.2f\n", 36, promedio_dias3);
+	printf("Cuarta semana: \n%c%.2f\n", 36, promedio_dias4);
+	//PROMEDIO SEMANA COMPLETA
+	for (dia = 0; dia < fila; dia++)
+		total_semana1 = total_semana1 + arreglo[dia][0];
+	for (dia = 0; dia < fila; dia++)
+		total_semana2 = total_semana2 + arreglo[dia][1];
+	for (dia = 0; dia < fila; dia++)
+		total_semana3 = total_semana3 + arreglo[dia][2];
+	for (dia = 0; dia < fila; dia++)
+		total_semana4 = total_semana4 + arreglo[dia][3];
+	
+	promedio_semana1 = total_semana1 / (7);
+	promedio_semana2 = total_semana2 / (7);
+	promedio_semana3 = total_semana3 / (7);
+	promedio_semana4 = total_semana4 / (7);
+
+	printf("Su promedio por semana fue-\n");
+	printf("Primera semana:\n%c%.2f\n", 36, promedio_semana1);
+	printf("Segunda semana:\n%c%.2f\n", 36, promedio_semana2);
+	printf("Tercera semana:\n%c%.2f\n", 36, promedio_semana3);
+	printf("Cuarta semana: \n%c%.2f\n", 36, promedio_semana4);
+
+	//PROMEDIO DE SABADO Y DOMINGO
+	for (semana = 0; semana < columna; semana++)
+		total_sabado = total_sabado + arreglo[5][semana];
+	for (semana = 0; semana < columna; semana++)
+		total_domingo = total_domingo + arreglo[6][semana];
+
+	promedio_sabadodomingo = (total_sabado + total_domingo) / (2 * columna);
+	printf("Su promedio de sabado y domingo es:\n%c%.2f\n",36, promedio_sabadodomingo);
+
+	//MEJOR VENTA TOTAL Y REPETICION
+	mejorventa = arreglo[0][0];
+	for (semana = 0; semana < columna; semana++)
+	{
+		for (dia = 0; dia < fila; dia++)
+		{
+			if (arreglo[dia][semana] > mejorventa)
+			{
+				mejorventa = arreglo[dia][semana];
+			}
+			else
+			{
+				mejorventa = mejorventa;
+			}
+		}
+	}
+
+	for (semana = 0; semana < columna; semana++)
+	{
+		for (dia = 0; dia < fila; dia++)
+		{
+			if (arreglo[dia][semana] == mejorventa)
+			{
+				repeticion_total++;
+			}
+		}
+	}
+
+	printf("\nLa mejor venta de las cuatro semanas fue:\n%c%.2f\n", 36, mejorventa);
+	printf("Esta venta ocurrio %d veces/vez en las cuatro semanas\n", repeticion_total);
+
+	//MEJOR VENTA POR SEMANA
+	mejorventa_semana1 = arreglo[0][0];
+	mejorventa_semana2 = arreglo[0][1];
+	mejorventa_semana3 = arreglo[0][2];
+	mejorventa_semana4 = arreglo[0][3];
+
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][0] > mejorventa_semana1)
+		{
+			mejorventa_semana1 = arreglo[dia][0];
+		}
+		else
+		{
+			mejorventa_semana1 = mejorventa_semana1;
+		}
+	}
+
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][1] > mejorventa_semana2)
+		{
+			mejorventa_semana2 = arreglo[dia][1];
+		}
+		else
+		{
+			mejorventa_semana2 = mejorventa_semana2;
+		}
+	}
+
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][2] > mejorventa_semana3)
+		{
+			mejorventa_semana3 = arreglo[dia][2];
+		}
+		else
+		{
+			mejorventa_semana3 = mejorventa_semana3;
+		}
+	}
+
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][3] > mejorventa_semana4)
+		{
+			mejorventa_semana4 = arreglo[dia][3];
+		}
+		else
+		{
+			mejorventa_semana4 = mejorventa_semana4;
+		}
+	}
+
+	//REPETICIONES
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][0] == mejorventa_semana1)
+		{
+			repeticion_primerasemana++;
+		}
+	}
+	
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][1] == mejorventa_semana2)
+		{
+			repeticion_segundasemana++;
+		}
+	}
+	
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][2] == mejorventa_semana3)
+		{
+			repeticion_tercerasemana++;
+		}
+	}
+
+	for (dia = 0; dia < fila; dia++)
+	{
+		if (arreglo[dia][3] == mejorventa_semana4)
+		{
+			repeticion_cuartasemana++;
+		}
+	}
+	
+	printf("La mejor venta de la primera semana fue:\n%c%.2f\nSe repitio %d veces/vez\n", 36, mejorventa_semana1, repeticion_primerasemana);
+	printf("La mejor venta de la segunda semana fue:\n%c%.2f\nSe repitio %d veces/vez\n", 36, mejorventa_semana2, repeticion_segundasemana);
+	printf("La mejor venta de la tercera semana fue:\n%c%.2f\nSe repitio %d veces/vez\n", 36, mejorventa_semana3, repeticion_tercerasemana);
+	printf("La mejor venta de la cuarta semana fue:\n%c%.2f\nSe repitio %d veces/vez\n", 36, mejorventa_semana4, repeticion_cuartasemana);
+
+	printf("\n\nGracias por su paciencia, buen d%ca%c", 161, 33);
+
+
+
+
+
+	return 0;
+
+}
